@@ -157,10 +157,14 @@ class TrendReq(object):
         }
 
         # build out json for each keyword
-        for kw in self.kw_list:
-            keyword_payload = {'keyword': kw, 'time': timeframe,
-                               'geo': self.geo}
-            self.token_payload['req']['comparisonItem'].append(keyword_payload)
+        if self.kw_list:
+            for kw in self.kw_list:
+                keyword_payload = {'keyword': kw, 'time': timeframe, 'geo': self.geo}
+                self.token_payload['req']['comparisonItem'].append(keyword_payload)
+        # otherwise do a search with no keywords
+        else:
+            payload = {'time': timeframe, 'geo': self.geo}
+            self.token_payload['req']['comparisonItem'].append(payload)
         # requests will mangle this if it is not a string
         self.token_payload['req'] = json.dumps(self.token_payload['req'])
         # get tokens
