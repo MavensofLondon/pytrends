@@ -39,9 +39,19 @@ class TestTrendReq(TestCase):
         pytrend.build_payload(kw_list=['pizza', 'bagel'])
         self.assertIsNotNone(pytrend.related_topics())
 
+    def test_related_topics_empty_kw_list(self):
+        pytrend = TrendReq()
+        pytrend.build_payload(kw_list=None)
+        self.assertIsNotNone(pytrend.related_topics())
+
     def test_related_queries(self):
         pytrend = TrendReq()
         pytrend.build_payload(kw_list=['pizza', 'bagel'])
+        self.assertIsNotNone(pytrend.related_queries())
+
+    def test_related_queries_empty_kw_list(self):
+        pytrend = TrendReq()
+        pytrend.build_payload(kw_list=None)
         self.assertIsNotNone(pytrend.related_queries())
 
     def test_trending_searches(self):
@@ -51,7 +61,7 @@ class TestTrendReq(TestCase):
 
     def test_top_charts(self):
         pytrend = TrendReq()
-        pytrend.build_payload(kw_list=['pizza', 'bagel'])
+        pytrend.build_payload(kw_list=None)
         self.assertIsNotNone(pytrend.top_charts(date=2016))
 
     def test_suggestions(self):
